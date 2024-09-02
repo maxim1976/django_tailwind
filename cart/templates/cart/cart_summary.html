@@ -1,0 +1,109 @@
+{% extends "wuming/base.html" %}
+
+
+{% block content %}
+
+<section class="text-gray-600 body-font">  
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-20">
+      <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">OUR TEAM</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them.</p>
+    </div>
+  {% if cart_products %}
+    <div class="flex flex-wrap -m-4">      
+      {% for product in cart_products %}
+        <div class="p-4 lg:w-1/4 md:w-1/2">
+          <div class="h-full flex flex-col items-center text-center">
+            <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4" src="{{ product.image.url }}">
+            <div class="w-full">
+              <h2 class="title-font font-medium text-lg text-gray-900">{{ product.name }}</h2>
+              <h3 class="text-gray-500 mb-3">{{ product.category }}</h3>
+              <p class="mb-4">{{ product.description }}</p>
+              <span class="inline-flex">
+                <p class="text-2xl">{{ product.price }}</p>              
+              </span>
+            </div>
+            <br>
+            <div>
+              <select class="appearance-none w-20 bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline" id="select{{product.id}}">
+                <option selected>
+                  {% for key, value in quantities.items %}
+                    {% if key == product.id|slugify %}
+                      {{ value }}
+                    {% endif %}
+                  {% endfor %}
+                </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+              <button type="button" class="bg-yellow-500 text-white border-0 py-2 px-4 hover:bg-yellow-600 rounded update-cart" data-index="{{product.id}}">Update</button>
+              <button type="button" class="bg-red-500 text-white border-0 py-2 px-4 hover:bg-red-600 rounded delete-product" data-index="{{product.id}}">Remove</button>
+            </div>             
+          </div>
+        </div>        
+      {% endfor %}
+      <div class="flex mx-auto mt-16 text-lg">
+        <div>
+          <strong>Total: ${{ totals }}</strong>
+          <button class="bg-green-500 text-white border-0 py-2 px-4 hover:bg-green-600 rounded"><a href="{% url 'checkout' %}">Checkout</a></button>
+        </div>
+      </div>
+      
+    {% else %}
+        <p>THERE'S NOTHING IN THE CART</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+
+<script>
+  $(document).on('click', '.update-cart', function(e) {
+    e.preventDefault();
+    var productid = $(this).data('index');    
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'cart_update' %}",
+      data: {
+        product_id: $(this).data('index'),
+        product_qty: $('#select' + productid + ' option:selected').text(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+      success: function(json) {
+        location.reload();
+      },
+      error: function(xhr, errmsg, err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+      }
+    });
+  })
+//  Delete product from cart
+  $(document).on('click', '.delete-product', function(e) {
+    e.preventDefault();
+    
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'cart_delete' %}",
+      data: {
+        product_id: $(this).data('index'),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+      success: function(json) {
+        location.reload();
+      },
+      error: function(xhr, errmsg, err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+      }
+    });
+  })
+    
+  
+</script>
+
+{% endblock %}
