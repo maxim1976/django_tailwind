@@ -32,7 +32,7 @@ if not SECRET_KEY:
 DEBUG = True
 
 ALLOWED_HOSTS = ['djangotailwind-production-475a.up.railway.app', 'https://djangotailwind-production-475a.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['djangotailwind-production-475a.up.railway.app', 'https://djangotailwind-production-475a.up.railway.app'']
+CSRF_TRUSTED_ORIGINS = ['https://djangotailwind-production-475a.up.railway.app']
 
 # Application definition
 
