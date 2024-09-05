@@ -1,2 +1,4 @@
-web: gunicorn wuming.wsgi --log-file
+gunicorn --workers 3 --bind 0.0.0.0:$PORT wuming.wsgi:application
+
 web: python manage.py migrate && gunicorn wuming.wsg
+

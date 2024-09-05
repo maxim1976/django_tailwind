@@ -31,6 +31,11 @@ if not SECRET_KEY:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
+PORT = os.environ.get("PORT", 8080)
+
+
 ALLOWED_HOSTS = ['djangotailwind-production-475a.up.railway.app', 'https://djangotailwind-production-475a.up.railway.app']
 CSRF_TRUSTED_ORIGINS = ['https://djangotailwind-production-475a.up.railway.app']
 
