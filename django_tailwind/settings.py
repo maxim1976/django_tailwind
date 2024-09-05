@@ -31,8 +31,8 @@ if not SECRET_KEY:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['*']
+ALLOWED_HOSTS = ['djangotailwind-production-475a.up.railway.app', 'https://djangotailwind-production-475a.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['djangotailwind-production-475a.up.railway.app', 'https://djangotailwind-production-475a.up.railway.app'']
 
 # Application definition
 
@@ -163,3 +163,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+ 
