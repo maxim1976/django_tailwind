@@ -29,14 +29,14 @@ if not SECRET_KEY:
     raise ValueError("The DJANGO_SECRET_KEY environment variable is not set")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 
-PORT = os.environ.get("PORT", 8080)
 
 
-ALLOWED_HOSTS = ['djangotailwind-production-475a.up.railway.app', 'https://djangotailwind-production-475a.up.railway.app']
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'djangotailwind-production-475a.up.railway.app']
 CSRF_TRUSTED_ORIGINS = ['https://djangotailwind-production-475a.up.railway.app']
 
 # Application definition
