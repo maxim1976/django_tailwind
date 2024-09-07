@@ -20,3 +20,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+# Use the PORT environment variable provided by Railway
+    port = os.environ.get('PORT', '8000')
+    execute_from_command_line(['manage.py', 'runserver', '0.0.0.0:' + port])
