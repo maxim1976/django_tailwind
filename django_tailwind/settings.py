@@ -36,7 +36,7 @@ DEBUG = True
 
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', '0.0.0.0']
 
 
 # Application definition
@@ -113,7 +113,7 @@ DATABASES = {
         'USER': os.environ.get('DB_USER', 'postgres'),
         'PASSWORD': os.environ.get('DB_PASSWORD'),
         'HOST': os.environ.get('DB_HOST'),
-        'PORT': '52332',
+        'PORT': '55032',
     }
 }
 
