@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 from dotenv import load_dotenv
+
+from environ import Env
 
 
 load_dotenv()
@@ -28,17 +31,23 @@ SECRET_KEY = os.environ.get('DB_PASSWORD', '')
 if not SECRET_KEY:
     raise ValueError("The DJANGO_SECRET_KEY environment variable is not set")
 
+ENVIRONMENT = os.environ.get('ENVIRONMENT')
+DB_HOST = os.environ.get('DB_HOST')
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if ENVIRONMENT == 'development':
+    DEBUG = True
+else:
+    DEBUG = False
 
 
 
 
 
 
-ALLOWED_HOSTS = ['*', '0.0.0.0']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'djangotailwind-production-475a.up.railway.app']
 
-
+CSRF_TRUSTED_ORIGINS = ['https://djangotailwind-production-475a.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
@@ -108,16 +117,22 @@ WSGI_APPLICATION = 'django_tailwind.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'railway'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': '55032',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': os.environ.get('DB_NAME', 'railway'),
+        # 'USER': os.environ.get('DB_USER', 'postgres'),
+        # 'PASSWORD': os.environ.get('DB_PASSWORD'),
+        # 'HOST': os.environ.get('DB_HOST'),
+        # 'PORT': '5432',
     }
 }
 
-
+POSTGRESS_LOCALLY = False
+if ENVIRONMENT == 'production' or POSTGRESS_LOCALLY == True:
+    DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+ 
 
 AUTH_PASSWORD_VALIDATORS = [
     {

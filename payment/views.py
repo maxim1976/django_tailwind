@@ -52,7 +52,7 @@ def not_shipped_dash(request):
             order.update(shipped=True, date_shipped=now)
            # redirect to the same page
             messages.success(request, 'Order status updated successfully!')
-            return redirect('index')
+            return redirect('not_shipped_dash')
 
 
         return render(request, 'payment/not_shipped_dash.html',{"orders": orders})
