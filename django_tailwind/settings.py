@@ -32,7 +32,7 @@ if not SECRET_KEY:
     raise ValueError("The DJANGO_SECRET_KEY environment variable is not set")
 
 ENVIRONMENT = os.environ.get('ENVIRONMENT')
-DB_HOST = os.environ['DB_HOST']
+
 PORT = os.environ['PORT']
 
 # SECURITY WARNING: don't run with debug turned on in production!
