@@ -46,7 +46,7 @@ else:
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'djangotailwind-production-475a.up.railway.app']
+ALLOWED_HOSTS = ['djangotailwind-production-475a.up.railway.app']
 
 CSRF_TRUSTED_ORIGINS = ['https://djangotailwind-production-475a.up.railway.app']
 # Application definition
