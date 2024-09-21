@@ -33,7 +33,7 @@ if not SECRET_KEY:
 
 ENVIRONMENT = os.environ.get('ENVIRONMENT')
 
-PORT = os.environ['PORT']
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if ENVIRONMENT == 'development':
@@ -44,11 +44,11 @@ else:
 
 
 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'djangotailwind-production-475a.up.railway.app']
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'djangotailwind-production-475a.up.railway.app']
-
-CSRF_TRUSTED_ORIGINS = ['https://djangotailwind-production-475a.up.railway.app']
+CSRF_TRUSTED_ORIGINS = []
 # Application definition
 
 INSTALLED_APPS = [
@@ -119,21 +119,21 @@ WSGI_APPLICATION = 'django_tailwind.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
 
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': os.environ.get('DB_NAME', 'railway'),
-        # 'USER': os.environ.get('DB_USER', 'postgres'),
-        # 'PASSWORD': os.environ.get('DB_PASSWORD'),
-        # 'HOST': os.environ.get('DB_HOST'),
-        # 'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+        'HOST': 'junction.proxy.rlwy.net',
+        'PORT': '44442',
     }
 }
 
-POSTGRESS_LOCALLY = False
-if ENVIRONMENT == 'production' or POSTGRESS_LOCALLY == True:
-    DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# POSTGRESS_LOCALLY = True
+# if ENVIRONMENT == 'production' or POSTGRESS_LOCALLY == True:
+#     DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
  
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -168,15 +168,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFIES_DIRS = ['static']
+STATICFIES_DIRS = [
+    BASE_DIR / 'static'
+]
 
 # WhiteNoise Configuration
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media files
+MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
