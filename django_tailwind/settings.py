@@ -46,7 +46,7 @@ else:
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'djangotailwind-production-475a.up.railway.app']
 
-ALLOWED_HOSTS = ['djangotailwind-production-475a.up.railway.app']
+ALLOWED_HOSTS = ['djangotailwind-production-475a.up.railway.app', 'localhost', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = ['https://djangotailwind-production-475a.up.railway.app']
 # Application definition
@@ -72,6 +72,7 @@ INSTALLED_APPS = [
 TAILWIND_APP_NAME = 'theme'
 
 INTERNAL_IPS = [
+    'localhost',
     'djangotailwind-production-475a.up.railway.app'
 ]
 
@@ -126,7 +127,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': os.environ['DB_PASSWORD'],
         'HOST': 'junction.proxy.rlwy.net',
-        'PORT': '44442',
+        'PORT': '26370',
     }
 }
 
