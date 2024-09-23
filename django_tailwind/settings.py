@@ -44,7 +44,7 @@ else:
 
 
 
-# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'djangotailwind-production-475a.up.railway.app']
 
 ALLOWED_HOSTS = ['djangotailwind-production-475a.up.railway.app']
 
@@ -72,8 +72,7 @@ INSTALLED_APPS = [
 TAILWIND_APP_NAME = 'theme'
 
 INTERNAL_IPS = [
-    '127.0.0.1',
-    'localhost:8000',
+    'djangotailwind-production-475a.up.railway.app'
 ]
 
 NPM_BIN_PATH = 'C:/Program Files/nodejs/npm.cmd'
