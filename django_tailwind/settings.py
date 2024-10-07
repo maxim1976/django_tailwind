@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DB_PASSWORD', '')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 if not SECRET_KEY:
     raise ValueError("The DJANGO_SECRET_KEY environment variable is not set")
 
@@ -125,9 +125,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': 'junction.proxy.rlwy.net',
-        'PORT': '44442',
+        'PASSWORD': os.environ.get('PGPASSWORD', ''),
+        'HOST': 'autorack.proxy.rlwy.net',
+        'PORT': '48816',
     }
 }
 
@@ -169,7 +169,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'theme/static'),  # Ensure this directory also exists
 ]
 
