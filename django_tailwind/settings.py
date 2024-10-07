@@ -123,7 +123,6 @@ DATABASES = {
     'default': {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
-
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'railway',
         'USER': 'postgres',
@@ -133,9 +132,9 @@ DATABASES = {
     }
 }
 
-# POSTGRESS_LOCALLY = True
-# if ENVIRONMENT == 'production' or POSTGRESS_LOCALLY == True:
-#     DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+POSTGRESS_LOCALLY = True
+if ENVIRONMENT == 'production' or POSTGRESS_LOCALLY == True:
+    DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
  
 
 AUTH_PASSWORD_VALIDATORS = [
