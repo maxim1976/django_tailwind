@@ -132,9 +132,9 @@ DATABASES = {
     }
 }
 
-POSTGRESS_LOCALLY = True
-if ENVIRONMENT == 'production' or POSTGRESS_LOCALLY == True:
-    DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# POSTGRESS_LOCALLY = True
+# if ENVIRONMENT == 'production' or POSTGRESS_LOCALLY == True:
+#     DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
  
 
 AUTH_PASSWORD_VALIDATORS = [
