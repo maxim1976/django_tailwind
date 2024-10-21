@@ -43,9 +43,9 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'djangotailwind-production-475a.up.railway.app']
 
-ALLOWED_HOSTS = ['djangotailwind-production-475a.up.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['djangotailwind-production-3540.up.railway.app', 'localhost', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://djangotailwind-production-475a.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://djangotailwind-production-3540.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
@@ -127,10 +127,6 @@ DATABASES = {
     }
 }
 
-# POSTGRESS_LOCALLY = True
-# if ENVIRONMENT == 'production' or POSTGRESS_LOCALLY == True:
-#     DATABASES['default'] = dj_database_url.parse(os.environ.get('DATABASE_URL'))
- 
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -175,6 +171,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'theme/static'),  # Ensure this directory also exists
 ]
 
