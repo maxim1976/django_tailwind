@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
-import dj_database_url
+
 from dotenv import load_dotenv
 
 from environ import Env
@@ -173,7 +173,7 @@ STATIC_ROOT = os.path.join(BASE_DIR / 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
+I
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'theme/static'),  # Ensure this directory also exists
 ]
