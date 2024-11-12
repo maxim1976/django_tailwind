@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from wuming.models import Category, Customer, Product, Order, Banner, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages

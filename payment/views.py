@@ -4,10 +4,13 @@ from payment.forms import ShippingForm, PaymentForm
 from payment.models import ShippingAddress, Order, OrderItem
 from django.contrib.auth.models import User
 from django.contrib import messages
-from wuming.models import Product, Profile
+from wuming.models import Product, Profile, is_shop_open
 import datetime
+from django.http import HttpResponseForbidden
 
 # Create your views here.
+
+
 def order_detail(request, pk):
     if request.user.is_authenticated and request.user.is_superuser:
         # Get the order
@@ -205,17 +208,25 @@ def payment_success(request):
     return render(request, 'payment/payment_success.html',{})
 
 def checkout(request):
-    cart = Cart(request)
-    cart_products = cart.get_prods
-    quantities = cart.get_quants
-    totals = cart.cart_total()
 
-    if request.user.is_authenticated:
-        # Get the user logged in
-        shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
-        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
-        return render(request, 'payment/checkout.html',{"cart_products": cart_products, "quantities": quantities, "totals": totals, "shipping_form": shipping_form})
+    if not is_shop_open():
+        return HttpResponseForbidden(
+            "Sorry, our online payment service is only available from 5:30 AM to 10:00 AM."
+        )
+
     else:
-        # Checked out as guest
-        shipping_form = ShippingForm(request.POST or None)
-        return render(request, 'payment/checkout.html',{"cart_products": cart_products, "quantities": quantities, "totals": totals, "shipping_form": shipping_form})    
+
+        cart = Cart(request)
+        cart_products = cart.get_prods
+        quantities = cart.get_quants
+        totals = cart.cart_total()
+
+        if request.user.is_authenticated:
+            # Get the user logged in
+            shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
+            shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+            return render(request, 'payment/checkout.html',{"cart_products": cart_products, "quantities": quantities, "totals": totals, "shipping_form": shipping_form})
+        else:
+            # Checked out as guest
+            shipping_form = ShippingForm(request.POST or None)
+            return render(request, 'payment/checkout.html',{"cart_products": cart_products, "quantities": quantities, "totals": totals, "shipping_form": shipping_form})    

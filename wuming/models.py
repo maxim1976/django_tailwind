@@ -1,5 +1,8 @@
 from django.db import models
 import datetime
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+from zoneinfo import ZoneInfo  # For handling timezone
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
@@ -52,6 +55,23 @@ class Product(models.Model):
         return self.name
 
 
+def is_shop_open():
+    # Get current time in your timezone (adjust 'Asia/Tokyo' to your timezone)
+    current_time = datetime.datetime.now(ZoneInfo("Asia/Taipei")).time()
+    
+    # Define shop hours
+    opening_time = datetime.time(5, 30)  # 5:30 AM
+    closing_time = datetime.time(10, 0)  # 10:00 AM
+    
+    return opening_time <= current_time <= closing_time
+
+def validate_shop_hours():
+    if not is_shop_open():
+        raise ValidationError(
+            "Sorry, our online payment service is only available from 5:30 AM to 10:00 AM."
+        )
+
+
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -59,6 +79,24 @@ class Order(models.Model):
     date = models.DateTimeField(default=datetime.datetime.now)
     phone = models.CharField(max_length=100)
     address = models.CharField(max_length=100, default='', null=True, blank=True)
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('pending', 'Pending'),
+            ('paid', 'Paid'),
+            ('cancelled', 'Cancelled')
+        ],
+        default='pending'
+    )
+
+    def clean(self):
+        super().clean()
+        if self.status == 'pending':
+            validate_shop_hours()
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.customer.name + ' - ' + self.product.name

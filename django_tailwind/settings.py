@@ -171,14 +171,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 STATICFILES_DIRS = [
+    
     os.path.join(BASE_DIR, 'theme/static'),  # Ensure this directory also exists
 ]
 
 # WhiteNoise Configuration
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
-# Media files
 
 
 
@@ -198,3 +197,13 @@ AWS_DEFAULT_ACL = None
 # AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 AWS_S3_VERITY = True
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY_TEST')
+
+# Add these to your settings.py
+SHOP_OPENING_HOUR = 5
+SHOP_OPENING_MINUTE = 30
+SHOP_CLOSING_HOUR = 10
+SHOP_CLOSING_MINUTE = 0
+SHOP_TIMEZONE = 'Asia/Taipei'  # Adjust to your timezone
