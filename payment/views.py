@@ -210,9 +210,11 @@ def payment_success(request):
 def checkout(request):
 
     if not is_shop_open():
-        return HttpResponseForbidden(
-            "Sorry, our online payment service is only available from 5:30 AM to 10:00 AM."
-        )
+        messages.error(request, '抱歉，我們的線上支付服務僅在早上5:30到上午10:00期間可用。 Sorry, our online payment service is only available from 5:30 AM to 10:00 AM.')
+        return redirect('index')
+        # return HttpResponseForbidden(
+        #     "Sorry, our online payment service is only available from 5:30 AM to 10:00 AM."
+        # )
 
     else:
 
