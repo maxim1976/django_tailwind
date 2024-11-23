@@ -43,9 +43,9 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'djangotailwind-production-475a.up.railway.app']
 
-ALLOWED_HOSTS = ['https://wuminghualien', 'wuminghualien', 'djangotailwind-production-3540.up.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['wuminghualien.com', 'djangotailwind-production-3540.up.railway.app', 'localhost', '127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://wuminghualien', 'https://djangotailwind-production-3540.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://wuminghualien.com', 'https://djangotailwind-production-3540.up.railway.app']
 # Application definition
 
 INSTALLED_APPS = [
